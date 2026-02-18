@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+RUN npx prisma generate
 
 EXPOSE 4000
-CMD ["node", "src/index.js"]
+CMD ["sh", "-c", "./wait-for-it.sh postgres:5432 --  node src/index.js"]
